@@ -1,3 +1,5 @@
+version: '3.3'
+
 services:
   typebot-db:
     image: 'postgres:16'
@@ -33,18 +35,6 @@ services:
         condition: service_healthy
     ports:
       - '9004:3000'
-    environment:
-      ENCRYPTION_SECRET: '${ENCRYPTION_SECRET}'
-      NEXTAUTH_URL: '${NEXTAUTH_URL}'
-      NEXT_PUBLIC_VIEWER_URL: '${NEXT_PUBLIC_VIEWER_URL}'
-      ADMIN_EMAIL: '${ADMIN_EMAIL}'
-      SMTP_HOST: '${SMTP_HOST}'
-      NEXT_PUBLIC_SMTP_FROM: '${NEXT_PUBLIC_SMTP_FROM}'
-      SMTP_USERNAME: '${SMTP_USERNAME}'
-      SMTP_PASSWORD: '${SMTP_PASSWORD}'
-      DEFAULT_WORKSPACE_PLAN: '${DEFAULT_WORKSPACE_PLAN}'
-      GITHUB_CLIENT_ID: '${GITHUB_CLIENT_ID}'
-      GITHUB_CLIENT_SECRET: '${GITHUB_CLIENT_SECRET}'
     extra_hosts:
       - 'host.docker.internal:host-gateway'
     env_file: .env
@@ -72,18 +62,6 @@ services:
       typebot-db:
         condition: service_healthy
     restart: always
-    environment:
-      ENCRYPTION_SECRET: '${ENCRYPTION_SECRET}'
-      NEXTAUTH_URL: '${NEXTAUTH_URL}'
-      NEXT_PUBLIC_VIEWER_URL: '${NEXT_PUBLIC_VIEWER_URL}'
-      ADMIN_EMAIL: '${ADMIN_EMAIL}'
-      SMTP_HOST: '${SMTP_HOST}'
-      NEXT_PUBLIC_SMTP_FROM: '${NEXT_PUBLIC_SMTP_FROM}'
-      SMTP_USERNAME: '${SMTP_USERNAME}'
-      SMTP_PASSWORD: '${SMTP_PASSWORD}'
-      DEFAULT_WORKSPACE_PLAN: '${DEFAULT_WORKSPACE_PLAN}'
-      GITHUB_CLIENT_ID: '${GITHUB_CLIENT_ID}'
-      GITHUB_CLIENT_SECRET: '${GITHUB_CLIENT_SECRET}'
     ports:
       - '9006:3000'
     env_file: .env
@@ -116,4 +94,3 @@ networks:
 
 configs: {  }
 secrets: {  }
-
