@@ -1,8 +1,5 @@
 version: '3.3'
 
-volumes:
-  db-data:
-
 services:
   typebot-db:
     image: 'postgres:16'
@@ -29,6 +26,7 @@ services:
       - coolify.name=typebot-db-bwwo8gkgc8sc4cgws08s8osw-125915249118
       - coolify.pullRequestId=0
     container_name: typebot-db-bwwo8gkgc8sc4cgws08s8osw-125915249118
+
   typebot-builder:
     image: 'baptistearno/typebot-builder:latest'
     restart: always
@@ -57,6 +55,7 @@ services:
       - coolify.name=typebot-builder-bwwo8gkgc8sc4cgws08s8osw-125915250485
       - coolify.pullRequestId=0
     container_name: typebot-builder-bwwo8gkgc8sc4cgws08s8osw-125915250485
+
   typebot-viewer:
     image: 'baptistearno/typebot-viewer:latest'
     depends_on:
@@ -83,13 +82,15 @@ services:
       - coolify.name=typebot-viewer-bwwo8gkgc8sc4cgws08s8osw-125915250731
       - coolify.pullRequestId=0
     container_name: typebot-viewer-bwwo8gkgc8sc4cgws08s8osw-125915250731
+
 volumes:
   bwwo8gkgc8sc4cgws08s8osw-db-data:
     name: bwwo8gkgc8sc4cgws08s8osw-db-data
+
 networks:
   bwwo8gkgc8sc4cgws08s8osw:
     name: bwwo8gkgc8sc4cgws08s8osw
     external: true
+
 configs: {  }
 secrets: {  }
-
