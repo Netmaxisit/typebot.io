@@ -5,7 +5,7 @@ services:
     volumes:
       - 'fso44wcskosswk88ggs0wwkk-db-data:/var/lib/postgresql/data'
     environment:
-      - POSTGRES_DB=typebot
+      - POSTGRES_DB=typebot2
       - POSTGRES_PASSWORD=typebot
     healthcheck:
       test:
