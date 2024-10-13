@@ -24,7 +24,7 @@ services:
       typebot-db:
         condition: service_healthy
     ports:
-      - '9004:9005'
+      - '9004:3000'
     extra_hosts:
       - 'host.docker.internal:host-gateway'
     env_file: .env
@@ -36,5 +36,5 @@ services:
         condition: service_healthy
     restart: always
     ports:
-      - '9006:9007'
+      - '9006:3000'
     env_file: .env
