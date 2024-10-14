@@ -1,40 +1,89 @@
-version: '3.3'
-
-volumes:
-  db-data:
-
 services:
   typebot-db:
-    image: postgres:16
+    image: 'postgres:16'
     restart: always
     volumes:
-      - db-data:/var/lib/postgresql/data
+      - 'wscwwcocgg8408oc8c08s8cc-db-data:/var/lib/postgresql/data'
     environment:
       - POSTGRES_DB=typebot
       - POSTGRES_PASSWORD=typebot
     healthcheck:
-        test: ["CMD-SHELL", "pg_isready -U postgres"]
-        interval: 5s
-        timeout: 5s
-        retries: 5
+      test:
+        - CMD-SHELL
+        - 'pg_isready -U postgres'
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    networks:
+      wscwwcocgg8408oc8c08s8cc: null
+    labels:
+      - coolify.managed=true
+      - coolify.version=4.0.0-beta.323
+      - coolify.applicationId=38
+      - coolify.type=application
+      - coolify.name=typebot-db-wscwwcocgg8408oc8c08s8cc-094515349841
+      - coolify.pullRequestId=0
+    container_name: typebot-db-wscwwcocgg8408oc8c08s8cc-094515349841
   typebot-builder:
-    image: baptistearno/typebot-builder:latest
+    image: 'baptistearno/typebot-builder:latest'
     restart: always
     depends_on:
       typebot-db:
         condition: service_healthy
     ports:
-      - '8080:3000'
+      - '9004:3000'
     extra_hosts:
       - 'host.docker.internal:host-gateway'
     env_file: .env
-
+    networks:
+      wscwwcocgg8408oc8c08s8cc: null
+    labels:
+      - 'caddy_0.encode=zstd gzip'
+      - 'caddy_0.handle_path.0_reverse_proxy=typebot-builder:3000'
+      - 'caddy_0.handle_path=/*'
+      - caddy_0.header=-Server
+      - 'caddy_0.try_files={path} /index.html /index.php'
+      - 'caddy_0=https://typebot.netmaxis.cloud'
+      - caddy_ingress_network=wscwwcocgg8408oc8c08s8cc
+      - coolify.managed=true
+      - coolify.version=4.0.0-beta.323
+      - coolify.applicationId=38
+      - coolify.type=application
+      - coolify.name=typebot-builder-wscwwcocgg8408oc8c08s8cc-094515351268
+      - coolify.pullRequestId=0
+    container_name: typebot-builder-wscwwcocgg8408oc8c08s8cc-094515351268
   typebot-viewer:
-    image: baptistearno/typebot-viewer:latest
+    image: 'baptistearno/typebot-viewer:latest'
     depends_on:
       typebot-db:
         condition: service_healthy
     restart: always
     ports:
-      - '8081:3000'
+      - '9006:3000'
     env_file: .env
+    networks:
+      wscwwcocgg8408oc8c08s8cc: null
+    labels:
+      - 'caddy_0.encode=zstd gzip'
+      - 'caddy_0.handle_path.0_reverse_proxy=typebot-viewer:3000'
+      - 'caddy_0.handle_path=/*'
+      - caddy_0.header=-Server
+      - 'caddy_0.try_files={path} /index.html /index.php'
+      - 'caddy_0=https://bot.netmaxis.cloud'
+      - caddy_ingress_network=wscwwcocgg8408oc8c08s8cc
+      - coolify.managed=true
+      - coolify.version=4.0.0-beta.323
+      - coolify.applicationId=38
+      - coolify.type=application
+      - coolify.name=typebot-viewer-wscwwcocgg8408oc8c08s8cc-094515351512
+      - coolify.pullRequestId=0
+    container_name: typebot-viewer-wscwwcocgg8408oc8c08s8cc-094515351512
+volumes:
+  wscwwcocgg8408oc8c08s8cc-db-data:
+    name: wscwwcocgg8408oc8c08s8cc-db-data
+networks:
+  wscwwcocgg8408oc8c08s8cc:
+    name: wscwwcocgg8408oc8c08s8cc
+    external: true
+configs: {  }
+secrets: {  }
